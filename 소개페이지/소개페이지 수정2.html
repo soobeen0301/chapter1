@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>차분하조</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+        /* 수빈님 코드 */
+        .mytitle {
+            width: 600px;
+            /* height: 800px; */
+
+            color: black;
+            background-color: white;
+            text-align: center;
+
+            padding-top: 30px;
+            margin-bottom: 30px;
+
+            border: 2px solid;
+
+
+        }
+
+        .myprofile {
+            width: 500px;
+            height: 500px;
+
+            color: white;
+            text-align: center;
+
+            background-image: url('https://img4.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202310/24/bemypet/20231024090024806qbul.jpg');
+            background-position: center;
+            background-size: cover;
+
+            margin: 15px auto auto auto;
+
+        }
+
+        .mypro {
+            width: 60px;
+            height: 60px;
+            background-image: url('https://img4.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202310/24/bemypet/20231024090024806qbul.jpg');
+            background-size: 60px 60px;
+            border-radius: 50%;
+
+            margin-left: 50px;
+            border: 2px solid;
+        }
+
+        .mypro>p {
+            font-size: 15pt;
+            color: blue;
+            margin-left: 70px;
+            margin-top: 15px;
+        }
+
+        .wrap {
+            width: 300px;
+            margin-left: 500px;
+            margin-top: 50px;
+        }
+
+        /* 여기까지 수빈님코드 */
+
+
+        /* 문자 위치 */
+
+        /* likes */
+        .string>h4 {
+            font-size: 15pt;
+            margin-right: 380px;
+            margin-top: 10px;
+        }
+
+        /* replybutton */
+        .string>button {
+            margin-right: 300px;
+            margin-bottom: 40px;
+        }
+
+        .reply {
+            margin-bottom: 50px;
+        }
+
+        /* date string */
+        .date {
+            margin-right: 400px;
+        }
+    </style>
+</head>
+<script>
+    function mbtiButton() {
+        $('#mbti').toggle();
+    }
+    function hobbyButton() {
+        $('#hobby').toggle();
+    }
+    function introButton() {
+        $('#introduce').toggle();
+    }
+    function goalButton() {
+        $('#goal').toggle();
+    }
+    //해시태그 버튼 끝
+
+    function replyButton() {
+        $('#reply').toggle();
+    }
+
+    function checkResult() {
+
+        let people = [
+            { 'name': '강아름', 'comments': '끝까지 포기하지 않고 5개월 잘 마무리 합시다.' },
+            { 'name': '이수빈', 'comments': '열심히 하겠습니다' },
+            { 'name': '복광수', 'comments': '5개월 잘 배우겠습니다!!' },
+            { 'name': '문승주', 'comments': '열정적으로 과제와 강의에 잘 임하겠습니다!' },
+            { 'name': '박서진', 'comments': '열심히 잘 하도록 노력하겠습니다!' },
+            { 'name': '박정균', 'comments': '후회하지 않게 열심히 해봐요!' }
+        ]
+
+        $('#comment').empty();
+
+        people.forEach(a => {
+            let name = a['name'];
+            let comments = a['comments'];
+            let temp_html = `<p><b>${name}</b> :  ${comments}</p>`;
+            $('#comment').append(temp_html);
+        });
+    }
+    function deletebtn() {
+        $('#comment').empty();
+    }
+</script>
+
+<body>
+    <div class="mainline">
+    </div>
+
+    <div class="wrap">
+        <div class="mytitle">
+            <div class="mypro">
+                <p> your_name </p>
+            </div>
+
+            <div class="myprofile">
+            </div>
+
+            <div class="string">
+                <h4><b>22,546 likes</b></h4>
+                <h5>your_name &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button onclick="mbtiButton()" type="button" class="btn btn-link">#mbti</button>
+                    <button onclick="hobbyButton()" type="button" class="btn btn-link">#hobby</button>
+                    <button onclick="introButton()" type="button" class="btn btn-link">#introdece</button>
+                    <button onclick="goalButton()" type="button" class="btn btn-link">#goal</button>
+                </h5>
+                <div id="mbti">
+                    <p>INFP 입니다.</p>
+                </div>
+                <div id="hobby">
+                    <p>취미는 무엇이요!</p>
+                </div>
+                <div id="introduce">
+                    <p>내 소개를 해보자고!</p>
+                </div>
+                <div id="goal">
+                    <p>내 목표는 무엇인가?</p>
+                </div>
+
+                <button onclick="replyButton()" type="button" class="btn btn-light">view all 105 comments</button>
+                <div class="reply" id="reply">
+                    <div id="comment">
+                        <p><b>이수빈</b> 강아지가 귀여워요 </p>
+                    </div>
+                    <button onclick="deletebtn()" type="button" class="btn btn-light">삭제</button>
+                    </p>
+
+                    <p><input type="text" placeholder="댓글을 입력해 주세요" required>
+                        <button onclick="checkResult()" type="button" class="btn btn-light">작성</button>
+                    </p>
+                </div>
+                <p class="date">2 days ago</p>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
