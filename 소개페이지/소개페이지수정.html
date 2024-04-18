@@ -71,6 +71,8 @@
 
 
         /* 문자 위치 */
+        /* your_name */
+        .string>h5 {}
 
         /* likes */
         .string>h4 {
@@ -119,21 +121,19 @@
         function goalButton() {
             $('#goal').toggle();
         }
+        //해시태그 버튼 끝
 
         function replyButton() {
             $('#reply').toggle();
         }
 
-        function x() {
-            $('#comment').delete();
-        }
     </script>
 </head>
 
 <body>
     <div class="mainline">
-    </div>
 
+    </div>
     <div class="wrap">
         <div class="mytitle">
             <div class="mypro">
@@ -141,6 +141,7 @@
             </div>
 
             <div class="myprofile">
+
             </div>
 
             <div class="string">
@@ -166,18 +167,22 @@
 
                 <button onclick="replyButton()" type="button" class="btn btn-light">view all 105 comments</button>
                 <div class="reply" id="reply">
-                    <p class = "comment"><b>이수빈</b>                          강아지가 귀여워요 
-                        <button id="x" type="button" class="btn btn-light">삭제</button>
+                    <p class = "comment"><b>이수빈</b>                          강아지가 귀여워요
+                        <button type="button" class="btn btn-light">수정</button>
+                        <button type="button" class="btn btn-light">삭제</button>
                     </p>
-
                     <p><input type="text" placeholder="댓글을 입력해 주세요" required>
-                        <button id="add"type="button" class="btn btn-light">작성</button>
+                        <button type="button" class="btn btn-light">작성</button>
+                        <button type="button" class="btn btn-light">삭제</button>
                     </p>
                 </div>
                 <p class="date">2 days ago</p>
             </div>
 
+
+
         </div>
+
 
 </body>
 
