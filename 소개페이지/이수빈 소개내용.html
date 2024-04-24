@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>차분하조-이수빈 소개페이지</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .likes {
+            padding-right: 20em;
+        }
+
+        /* 공통 인스타그램 버튼 스타일링 */
+        .instagram-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 35px;
+            /* 아이콘 크기 */
+            padding: 10px;
+            /* 버튼 크기 조절 */
+            margin-right: 5px;
+            /* 버튼 간격 조절 */
+            color: #262626;
+            /* 버튼 색상 */
+        }
+
+        /* 좋아요 버튼 색상 변경 */
+        .instagram-btn.like-btn {
+            color: red;
+        }
+
+        /* 댓글 버튼 색상 변경 */
+        .instagram-btn.comment-btn {
+            color: #72b8eb;
+            /* 파란색 */
+        }
+
+        /* 전송 버튼 색상 변경 */
+        .instagram-btn.send-btn {
+            color: #a6bcd2;
+            /* 파란색 */
+        }
+
+        .mytitle {
+            width: 600px;
+
+            color: black;
+            text-align: center;
+
+            padding-top: 30px;
+            margin-bottom: 30px;
+            border: 2px solid;
+            background-color: white;
+
+        }
+
+        .myprofile {
+            width: 500px;
+            height: 500px;
+
+            color: white;
+            text-align: center;
+
+            background-image: url('https://github.com/soobeen0301/soobeen_node/blob/main/%EC%86%8C%EA%B0%9C%ED%8E%98%EC%9D%B4%EC%A7%80/KakaoTalk_20240418_163556238.jpg?raw=true');
+            background-position: center;
+            background-size: cover;
+
+            margin: 15px 30px auto 30px;
+
+        }
+
+        .mypro {
+            width: 70px;
+            height: 70px;
+            background-image: url('https://github.com/soobeen0301/soobeen_node/blob/main/%EC%86%8C%EA%B0%9C%ED%8E%98%EC%9D%B4%EC%A7%80/KakaoTalk_20240418_163556238.jpg?raw=true');
+            background-size: 60px 60px;
+            border-radius: 50%;
+
+            margin-left: 30px;
+            border: 2px solid;
+        }
+
+        .mypro>p {
+            font-size: 15pt;
+            font-weight: bold;
+            white-space: nowrap;
+
+            color: darkblue;
+            margin-left: 80px;
+            margin-top: 15px;
+        }
+
+        .wrap {
+            display: flex;
+            width: 300px;
+            margin-left: 500px;
+            margin-top: 50px;
+        }
+
+        /* 문자 위치 */
+        /* your_name */
+        .string>h5 {
+            font-size: 20px;
+            font-weight: bold;
+            color: darkblue;
+
+            margin-right: 75px;
+        }
+
+        /* likes */
+        .string>h4 {
+            margin-right: 403px;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* replybutton */
+        .string>button {
+            margin-right: 325px;
+        }
+
+        /* date string */
+        .date {
+            margin-right: 423px;
+            margin-top: 15px;
+            margin-bottom: 50px;
+            color: #a6bcd2;
+        }
+
+        .mb-1 {
+            margin-right: 230px;
+        }
+
+        small {
+            margin-right: 230px;
+        }
+
+        .list-group {
+            margin-top: 30px;
+        }
+
+        #postingBtn {
+            margin-left: 470px;
+            margin-top: 15px;
+        }
+
+        .list-group a>button {
+            margin-left: 500px;
+
+            font-size: 0;
+            line-height: 0;
+        }
+
+         /* 해시태그시 간격 */
+         #mbti{
+            padding-top: 15px;
+        }
+        #hobby{
+            padding-top: 15px;
+        }
+        #introduce{
+            padding-top: 15px;
+        }
+        #goal{
+            padding-top: 15px;
+        }
+        .blank{
+            width: 100%;
+            height: 20px
+        }
+    </style>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+        // Firebase 구성 정보 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWR2QcOVoWMIBZJYpzbOCuLxzLqQyv1Dw",
+            authDomain: "spartaproject-d87ba.firebaseapp.com",
+            projectId: "spartaproject-d87ba",
+            storageBucket: "spartaproject-d87ba.appspot.com",
+            messagingSenderId: "565006782015",
+            appId: "1:565006782015:web:cdea1d0a577294b517b28a",
+            measurementId: "G-P5VMGQWKXW"
+        };
+
+
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+
+
+        //댓글 등록, 불러오기 
+        async function loadComments() {
+            try {
+                let docs = await getDocs(collection(db, "teampage"));
+                $('#list').empty();
+                docs.forEach((doc) => {
+                    let data = doc.data();
+                    let nickname = data['nickname'];
+                    let comment = data['comment'];
+
+
+                    let tempHtml = `
+        <a href="#" class="list-group-item list-group-item-action" data-doc-id="${doc.id}">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">${nickname}</h5>
+            </div>
+            <p class="mb-1">${comment}</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-primary btn-sm" id="updateBtn">수정</button>
+                <button id="deletebutton" type="button" class="btn btn-secondary btn-sm">삭제</button>
+            </div>
+        </a>`;
+
+                    $('#list').append(tempHtml);
+                });
+            } catch (error) {
+                console.error('게시물 로드 오류:', error);
+                alert('게시물 로드 중 오류가 발생했습니다.');
+            }
+        }
+        $("#postingBtn").click(async function () {
+            let nickname = $('#nickname').val();
+            let comment = $('#comment').val();
+
+            // 입력값 확인
+            if (!nickname || !comment) {
+                alert('닉네임과 댓글을 입력해주세요.');
+                return;
+            }
+
+            // 새 게시물 객체
+            let newPost = {
+                'nickname': nickname,
+                'comment': comment
+            };
+
+            try {
+                // Firestore에 새로운 게시물 추가
+                await addDoc(collection(db, "teampage"), newPost);
+                alert('게시물 작성 완료!');
+
+                // 새로 작성된 게시물 즉시 로드
+                loadComments();
+
+                $('#nickname').val(''); // 닉네임 입력 필드 초기화
+                $('#comment').val('');// 댓글 입력 필드 초기화
+            } catch (error) {
+                console.error('게시물 작성 오류:', error);
+                alert('게시물 작성 중 오류가 발생했습니다.');
+            }
+        });
+        $(document).ready(function () {
+            loadComments();
+        });
+
+        //토글 버튼
+        $("#mbtiButton").click(async function () {
+            $('#mbti').toggle();
+        });
+        $("#hobbyButton").click(async function () {
+            $('#hobby').toggle();
+        });
+        $("#introButton").click(async function () {
+            $('#introduce').toggle();
+        });
+        $("#goalButton").click(async function () {
+            $('#goal').toggle();
+        });
+        $("#replyButton").click(async function () {
+            $('#reply').toggle();
+        });
+        $("#replyButton2").click(async function () {
+            $('#reply').toggle();
+        });
+
+
+
+
+        //파이어베이스 삭제
+        $(document).on("click", "#deletebutton", async function (e) {
+            e.preventDefault();
+            const id = $(this).closest('.list-group-item').data('doc-id');
+            if (confirm("정말 삭제 하시겠습니까?")) {
+                try {
+                    await deleteDoc(doc(db, 'teampage', id));
+                    $(this).closest('.list-group-item').remove();
+                } catch (error) {
+                    alert(error);
+                }
+            }
+        });
+
+
+        //수정버튼
+        async function updateBtn(e) {
+            e.preventDefault();
+            const docId = $(e.currentTarget).closest('.list-group-item').data('doc-id');
+            const newComment = prompt('새로운 댓글을 입력하세요:');
+            const postRef = doc(db, 'teampage', docId);
+            try {
+                await updateDoc(postRef, {
+
+                    comment: newComment,
+                });
+                console.log('게시글이 수정되었습니다!');
+
+                loadComments();
+
+            } catch (error) {
+                console.error('게시물 수정 오류:', error);
+                alert('게시물 수정 중 오류가 발생했습니다.');
+            }
+        }
+
+        $(document).on('click', '#updateBtn', updateBtn);
+        const isFirstVisit = localStorage.getItem('isFirstVisit');
+        if (isFirstVisit === null) {
+            $('#reply').hide();
+            localStorage.setItem('isFirstVisit', 'true');
+        }
+
+        $('#mbti').hide();
+        $('#hobby').hide();
+        $('#introduce').hide();
+        $('#goal').hide();
+        $('#reply').hide();
+
+        //댓글 수 count 증가
+        $("#postingBtn").click(function () {
+            let count = parseInt($("#countbtn").text());
+            let newcount = count + 1;
+            $("#countbtn").text(newcount);
+        });
+
+        //댓글 수 count 감소
+        $(document).on("click", ".btn.btn-secondary", function () {
+
+            let count = parseInt($("#countbtn").text());
+            let newCount = count - 1;
+            $("#countbtn").text(newCount);
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="mytitle">
+            <div class="mypro">
+                <p> 이수빈 </p>
+            </div>
+
+            <div class="myprofile">
+
+            </div>
+            <div class="likes">
+                <!-- 좋아요 버튼 -->
+                <button class="instagram-btn like-btn">
+                    <i class="fas fa-heart"></i>
+                </button>
+
+                <!-- 댓글 버튼 -->
+                <button class="instagram-btn comment-btn">
+                    <i class="fas fa-comment"></i>
+                </button>
+
+                <!-- 전송 버튼 -->
+                <button class="instagram-btn send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="string">
+                <h4>22,546 likes</h4>
+                <h5> 이수빈 &nbsp;&nbsp;
+                    <button id="mbtiButton" type="button" class="btn btn-link">#mbti</button>
+                    <button id="hobbyButton" type="button" class="btn btn-link">#hobby</button>
+                    <button id="introButton" type="button" class="btn btn-link">#introdece</button>
+                    <button id="goalButton" type="button" class="btn btn-link">#goal</button>
+                </h5>
+                <div id="mbti">
+                    <p>ISTJ</p>
+                </div>
+                <div id="hobby">
+                    <p>영화보기</p>
+                    <p>노래듣기</p>
+                    <p>노래방가기</p>
+                </div>
+                <div id="introduce">
+                    <p><b>favorite food</b> : 떡볶이 닭강정</p>
+                    <p><b>favorite movie</b> : 너의 결혼식</p>
+                    <p><b>favorite music</b> : Nerd Connection - 그대만 있다면</p>
+                </div>
+                <div id="goal">
+                    <p>내 코드를 잘 설명할 수 있는 개발자가 되자!</p>
+                </div>
+
+                <button id="replyButton" type="button" class="btn btn-light">View all <span id="countbtn">105</span>
+                    Comments</button>
+                <div>
+
+                </div>
+
+                <div class="reply" id="reply">
+                    <div id="list" class="list-group"> </div>
+                    <div class="blank"> </div>
+                    <div class="nickname">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here"
+                                    id="nickname"></textarea>
+                                <label for="floatingTextarea">Nickname...</label>
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Comments...</label>
+                        </div>
+                        <button id="postingBtn" type="button" class="btn btn-light">posting</button>
+                    </div>
+                </div>
+                <p class="date">2 days ago</p>
+            </div>
+        </div>
+
+</body>
+
+</html>
